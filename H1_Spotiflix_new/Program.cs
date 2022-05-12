@@ -34,15 +34,17 @@ while (true)
     Console.WriteLine("Press 1 to registre a Movie");
     Console.WriteLine("Press 2 to look at Movie Database");
     Console.WriteLine("Press 3 to search for Keyword");
-    Console.WriteLine(" ");
+    Console.WriteLine();
     Console.WriteLine("Press 4 to registre a Series");
     Console.WriteLine("Press 5 to look at Series Database");
     Console.WriteLine("Press 6 to Search for Keyword");
-    Console.WriteLine(" ");
+    Console.WriteLine();
     Console.WriteLine("Press 7 to registre a Song");
     Console.WriteLine("Press 8 to look at Music Database");
     Console.WriteLine("Press 9 to Search for Keyword");
-    Console.WriteLine(" ");
+    Console.WriteLine();
+    Console.WriteLine("Write 10 to Search Globally");
+    Console.WriteLine();
     Console.WriteLine("Press 0 to exit program");
     string input = Console.ReadLine();
 
@@ -83,11 +85,7 @@ while (true)
 
                 foreach (var movie in database.Movies)
                 {
-                    Console.WriteLine(movie.Title);
-                    Console.WriteLine(movie.Length);
-                    Console.WriteLine(movie.Genre);
-                    Console.WriteLine(movie.Relasedate);
-                    Console.WriteLine(movie.Web);
+                    movie.Print();
                 }
 
                 Console.WriteLine("Press any key to return");
@@ -101,13 +99,10 @@ while (true)
                 string query = Console.ReadLine();
                 foreach (var movie in database.Movies)
                 {
-                    if (movie.Title.Contains(query) || movie.Genre.Contains(query) || movie.Relasedate.Contains(query))
+                    if (movie.Contains(query))
                     {
-                        Console.WriteLine(movie.Title);
-                        Console.WriteLine(movie.Length);
-                        Console.WriteLine(movie.Genre);
-                        Console.WriteLine(movie.Relasedate);
-                        Console.WriteLine(movie.Web);
+                        movie.Print();
+                        
                     }
                 }
                 Console.WriteLine("Press any key to return");
@@ -159,14 +154,7 @@ while (true)
 
                 foreach (var series in database.Seriess)
                 {
-                    Console.WriteLine(series.Title);
-                    Console.WriteLine(series.TitleEpisode);
-                    Console.WriteLine(series.Episode);
-                    Console.WriteLine(series.Length);
-                    Console.WriteLine(series.Genre);
-                    Console.WriteLine(series.Season);
-                    Console.WriteLine(series.Relasedate);
-                    Console.WriteLine(series.Web);
+                    series.Print();
                 }
 
                 Console.WriteLine("Press any key to return");
@@ -180,21 +168,9 @@ while (true)
                 string query = Console.ReadLine();
                 foreach (var series in database.Seriess)
                 {
-                    if (series.Title.Contains(query) || 
-                        series.Genre.Contains(query) ||
-                        series.Relasedate.Contains(query) ||
-                        series.TitleEpisode.Contains(query) ||
-                        series.Season.Contains(query) ||
-                        series.Episode.Contains(query))
+                    if (series.Contains(query))
                     {
-                        Console.WriteLine(series.Title);
-                        Console.WriteLine(series.TitleEpisode);
-                        Console.WriteLine(series.Episode);
-                        Console.WriteLine(series.Length);
-                        Console.WriteLine(series.Genre);
-                        Console.WriteLine(series.Season);
-                        Console.WriteLine(series.Relasedate);
-                        Console.WriteLine(series.Web);
+                        series.Print();
                     }
                 }
                 Console.WriteLine("Press any key to return");
@@ -229,7 +205,7 @@ while (true)
                     Artist = Artist,
                     Album = Album,
                     Web = Web,
-                }); 
+                });
                 Save(database);
                 Console.WriteLine("Song added to DataBase");
                 Console.ReadKey();
@@ -242,13 +218,7 @@ while (true)
 
                 foreach (var music in database.Musics)
                 {
-                    Console.WriteLine(music.Title);
-                    Console.WriteLine(music.Length);
-                    Console.WriteLine(music.Genre);
-                    Console.WriteLine(music.Relasedate);
-                    Console.WriteLine(music.Artist);
-                    Console.WriteLine(music.Album);
-                    Console.WriteLine(music.Web);
+                    music.Print();
                 }
 
                 Console.WriteLine("Press any key to return");
@@ -262,23 +232,45 @@ while (true)
                 string query = Console.ReadLine();
                 foreach (var music in database.Musics)
                 {
-                    if (music.Title.Contains(query) || 
-                        music.Genre.Contains(query) ||
-                        music.Relasedate.Contains(query) || 
-                        music.Artist.Contains(query) || 
-                        music.Album.Contains(query))
+                    if (music.Contains(query))
                     {
-                        Console.WriteLine($"Title: {music.Title}");
-                        Console.WriteLine(music.Length);
-                        Console.WriteLine(music.Genre);
-                        Console.WriteLine(music.Relasedate);
-                        Console.WriteLine(music.Artist);
-                        Console.WriteLine(music.Album);
-                        Console.WriteLine(music.Web);
+                        music.Print();
                     }
                 }
                 Console.WriteLine("Press any key to return");
                 Console.ReadKey();
+                break;
+            }
+        case "10":
+            {
+                Console.Clear();
+                Console.Write("Query: ");
+                string query = Console.ReadLine();
+                foreach (var movie in database.Movies)
+                {
+                    if (movie.Contains(query))
+                    {
+                        movie.Print();
+
+                    }
+                }
+                foreach (var series in database.Seriess)
+                {
+                    if (series.Contains(query))
+                    {
+                        series.Print();
+                    }
+                }
+                foreach (var music in database.Musics)
+                {
+                    if (music.Contains(query))
+                    {
+                        music.Print();
+                    }
+                }
+                Console.WriteLine("Press any key to return");
+                Console.ReadKey();
+
                 break;
             }
 
@@ -286,7 +278,7 @@ while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Closing program");
-                break;
+                return;
             }
         default:
             {
