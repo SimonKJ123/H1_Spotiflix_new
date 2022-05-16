@@ -3,7 +3,7 @@ using System.Text.Json;
 
 string path = "Database.json";
 
-Database? database = null;
+Database database = null;
 
 void Save(Database database)
 {
